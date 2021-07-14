@@ -1,4 +1,4 @@
-package com.hmsstarthacking;
+package com.huawei.hackzurich;
 
 import com.facebook.react.ReactActivity;
 
