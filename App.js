@@ -14,6 +14,8 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
+  Alert
 } from 'react-native';
 
 import {
@@ -23,6 +25,9 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import { HmsPushInstanceId } from "@hmscore/react-native-hms-push";
+import HMSAvailability, { ErrorCode } from '@hmscore/react-native-hms-availability';
 
 const App: () => React$Node = () => {
   return (
@@ -38,6 +43,10 @@ const App: () => React$Node = () => {
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
+          <Button
+            onPress={() => checkHMS()}
+            title="Check HMS status"
+          />
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
@@ -110,5 +119,34 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
+
+function checkHMS() {
+  testHmsCorePresence()
+    .then((hmsCoreOk) => testAccountByRequestingPushNotificationsToken())
+    .then((pushTokenRetrieved) => Alert.alert("SUCCESS", "All good. Start hacking!"))
+    .catch((anyError) => Alert.alert("FAIL", "" + anyError));
+}
+
+function testAccountByRequestingPushNotificationsToken() {
+  return HmsPushInstanceId.getToken("")
+    .then((pushToken) => {
+      if (result.isEmpty) {
+        return Promise.reject(new Error("Push notifications token retrieved, but empty. Clear app data and try again."));
+      } else {
+        return Promise.resolve("PushToken:" + pushToken);
+      }
+    });
+}
+
+function testHmsCorePresence() {
+  return HMSAvailability.isHuaweiMobileServicesAvailable().then((checkResult) => {
+    if (checkResult == ErrorCode.HMS_CORE_APK_AVAILABLE) {
+      return Promise.resolve("HMS Core available");
+    } else {
+      return HMSAvailability.getErrorString(checkResult)
+        .then((errorExplained) => Promise.reject("HMS Core not available because: " + errorExplained));
+    }
+  });
+}
 
 export default App;
