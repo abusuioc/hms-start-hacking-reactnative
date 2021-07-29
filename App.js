@@ -130,7 +130,7 @@ function checkHMS() {
 function testAccountByRequestingPushNotificationsToken() {
   return HmsPushInstanceId.getToken("")
     .then((pushToken) => {
-      if (result.isEmpty) {
+      if (pushToken.isEmpty) {
         return Promise.reject(new Error("Push notifications token retrieved, but empty. Clear app data and try again."));
       } else {
         return Promise.resolve("PushToken:" + pushToken);
