@@ -129,12 +129,20 @@ function checkHMS() {
 
 function testAccountByRequestingPushNotificationsToken() {
   return HmsPushInstanceId.getToken("")
-    .then((pushToken) => {
+    .then((pushTokenAsJsonObject) => {
+      var pushToken;
+      try {
+        pushToken = pushTokenAsJsonObject.result;
+      } catch (err) {
+        return Promise.reject(new Error("Push notifications token retrieved but malformated."));
+      }
+      console.log("HMS Push token: " + pushToken);
       if (pushToken.isEmpty) {
         return Promise.reject(new Error("Push notifications token retrieved, but empty. Clear app data and try again."));
       } else {
         return Promise.resolve("PushToken:" + pushToken);
       }
+
     });
 }
 
