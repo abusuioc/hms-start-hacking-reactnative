@@ -29,7 +29,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.huawei.hackzurich"
+        applicationId "hms.starter"
         minSdkVersion 26 //because of com.huawei.hms:image-vision:1.0.3.304 (otherwise 19)
         targetSdkVersion 30
         versionCode 1
