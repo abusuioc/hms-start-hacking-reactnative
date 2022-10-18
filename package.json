@@ -9,18 +9,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@hmscore/react-native-hms-ar": "^2.15.0-4-01",
-    "@hmscore/react-native-hms-availability": "^5.2.0-300",
-    "@hmscore/react-native-hms-awareness": "^1.0.8-301",
-    "@hmscore/react-native-hms-location": "^5.1.0-303",
-    "@hmscore/react-native-hms-map": "^5.2.0-302",
-    "@hmscore/react-native-hms-ml": "^2.0.5-301",
-    "@hmscore/react-native-hms-push": "^5.3.0-301",
-    "@hmscore/react-native-hms-scan": "^1.3.1-301",
-    "@hmscore/react-native-hms-site": "^5.2.0-300",
+    "@hmscore/react-native-hms-ar": "^3.7.0-3",
+    "@hmscore/react-native-hms-availability": "^6.7.0-300",
+    "@hmscore/react-native-hms-health": "file:local_modules/hmscore-react-native-hms-health-6.4.0-301.tgz",
+    "@hmscore/react-native-hms-location": "^6.4.0-301",
+    "@hmscore/react-native-hms-map": "^6.3.1-305",
+    "@hmscore/react-native-hms-ml": "^3.5.0-301",
+    "@hmscore/react-native-hms-push": "^6.5.0-300",
     "install": "^0.13.0",
-    "react": "17.0.2",
-    "react-native": "^0.65.0"
+    "react": "18.1.0",
+    "react-native": "0.70.3"
   },
   "devDependencies": {
     "@babel/core": "7.11.6",

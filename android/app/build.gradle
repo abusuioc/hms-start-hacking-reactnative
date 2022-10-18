@@ -20,8 +20,7 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -30,8 +29,8 @@ android {
 
     defaultConfig {
         applicationId "hms.starter"
-        minSdkVersion 26 //because of com.huawei.hms:image-vision:1.0.3.304 (otherwise 19)
-        targetSdkVersion 30
+        minSdkVersion 26 //needed by the HMS AR Kit
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
@@ -52,8 +51,16 @@ android {
         }
     }
 
-    packagingOptions {
-        pickFirst 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
+        packagingOptions {
+        resources {
+            pickFirsts += ['okhttp3/internal/publicsuffix/publicsuffixes.gz']
+        }
+        pickFirst 'lib/arm64-v8a/libVariableSpeed.so'
+        pickFirst 'lib/armeabi-v7a/libVariableSpeed.so'
+        pickFirst 'lib/arm64-v8a/libmindspore-lite.so'
+        pickFirst 'lib/armeabi-v7a/libmindspore-lite.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
     }
 }
 
@@ -83,7 +90,7 @@ dependencies {
 // Run this once to be able to run the application with BUCK
 // puts all compile dependencies into folder libs for BUCK to use
 task copyDownloadableDepsToLibs(type: Copy) {
-    from configurations.compile
+    from configurations.implementation
     into 'libs'
 }
 
